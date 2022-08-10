@@ -1,0 +1,65 @@
+[- mapperXml, ${path}/resources/mapper , _ -]
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${package}.mapper.${MODEL}Mapper">
+    <!--查询数据-->
+    <select id="getData" resultType="${package}.model.${MODEL}" >
+        select
+            <choose>
+                <when test="field == null || field.size() == 0"> * </when>
+                <otherwise>
+                    <foreach collection="field" item="item" separator=",">
+                        `${item}`
+                    </foreach>
+                </otherwise>
+            </choose>
+        from `${table}`
+        <where>
+            <if test="obj != null">
+${IfFiled}
+            </if>
+        </where>
+        <!--order by id desc(升)||asc(降序)-->
+        <if test="first != null and last != null">
+           limit #{first} , #{last}
+        </if>
+    </select>
+
+    <!--添加数据-->
+    <insert id="addData" >
+        insert into `${MODEL}`
+            (
+            <trim suffixOverrides="," >
+${AllField}
+            </trim>
+            )
+        values
+            (
+            <trim suffixOverrides="," >
+${AddField}
+            </trim>
+            )
+    </insert>
+
+    <!-- 更新数据  -->
+    <update id="update">
+        update `${MODEL}` set
+            <if test="map != null">
+                <trim suffixOverrides="," >
+${setField}
+                </trim>
+            </if>
+        <where>
+            <if test="obj != null">
+                <trim suffixOverrides="," >
+${setIfField}
+                </trim>
+            </if>
+        </where>
+    </update>
+
+</mapper>
+
+[END]

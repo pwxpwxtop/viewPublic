@@ -1,0 +1,19 @@
+[- mapper , ${path}/mapper , _-]
+package ${package}.mapper;
+
+import ${package}.model.${MODEL};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+ * @author pwx
+ * @version 1.0
+ * @createDate: 2022年07月26
+ * @comment
+ */
+public interface ${MODEL}Mapper extends BaseMapper<${MODEL}> {
+
+
+}
+
+
+[END]

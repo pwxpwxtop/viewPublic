@@ -1,0 +1,47 @@
+[- service, ${path}/service , _ -]
+package ${package}.service;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import java.util.Map;
+import ${package}.model.${MODEL};
+
+/**
+ * @author pwx
+ * @version 1.0
+ * @createDate: 2022年07月26
+ * @comment
+ */
+
+public interface ${MODEL}Service {
+
+    /**
+     * @param obj 实体类
+     * @param page 分页数据
+     * @return data
+     */
+    Map<String, Object> getData(${MODEL} obj, Page<${MODEL}> page);
+
+    /**
+     *
+     * @param obj 实体类
+     * @return data
+     */
+    Map<String, Object> insert(${MODEL} obj);
+
+    /**
+     *
+     * @param obj 实体类
+     * @return data
+     */
+    Map<String, Object> update(${MODEL} obj);
+
+    /**
+     *
+     * @param id 用户id
+     * @return data
+     */
+    Map<String, Object> delete(String id);
+
+}
+
+[END]

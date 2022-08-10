@@ -1,0 +1,118 @@
+[- serviceImpl , ${path}/service/impl , _ -]
+package ${package}.service.impl;
+
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import divui.ai.view.tool.sw.Switch;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.Map;
+import ${package}.model.${MODEL};
+import ${package}.mapper.${MODEL}Mapper;
+import ${package}.service.${MODEL}Service;
+
+
+/**
+ * @author pwx
+ * @version 1.0
+ * @createDate: 2022年07月26
+ * @comment
+ */
+@Service
+@Slf4j
+public class ${MODEL}ServiceImpl implements ${MODEL}Service {
+
+    @Autowired
+    private ${MODEL}Mapper mapper;
+
+    @Override
+    public Map<String, Object> getData(${MODEL} obj, Page<${MODEL}> page) {
+        HashMap<String, Object> content = new HashMap<>();
+        Switch<${MODEL}> Switch = new Switch<>();                           //工具转换
+        QueryWrapper<${MODEL}> queryWrapper = Switch.returnWrapper(obj);   //要查的条件
+        try {
+            mapper.selectPage(page , queryWrapper);
+            content.put("code", "success");
+            content.put("msg", "查询数据成功");
+        }catch (Exception e){
+            content.put("code", "fail");
+            content.put("err", e.getMessage());
+            log.error(e.getMessage());
+            return content;
+        }
+        content.put("total", page.getTotal());
+        content.put("data", page.getRecords());
+        return content;
+    }
+
+    @Override
+    public Map<String, Object> insert(${MODEL} obj) {
+        HashMap<String, Object> content = new HashMap<>();
+        int i = 0;
+        try {
+            i = mapper.insert(obj);
+            content.put("code", "success");
+            content.put("msg", "添加数据成功");
+        }catch (Exception e){
+            content.put("code", "fail");
+            content.put("err", e.getMessage());
+            log.error(e.getMessage());
+            return content;
+        }
+        if (i == 0){
+            content.put("code", "fail");
+            content.put("msg", "添加数据失败");
+        }
+        return content;
+    }
+
+    @Override
+    public Map<String, Object> update(${MODEL} obj) {
+        HashMap<String, Object> content = new HashMap<>();
+
+        int i = 0;
+        try {
+            i = mapper.updateById(obj);
+            content.put("code", "success");
+            content.put("msg", "更新数据成功");
+        }catch (Exception e){
+            content.put("code", "fail");
+            content.put("err", e.getMessage());
+            log.error(e.getMessage());
+            return content;
+        }
+        if (i == 0){
+            content.put("code", "fail");
+            content.put("msg", "更新数据失败");
+        }
+        return content;
+    }
+
+    @Override
+    public Map<String, Object> delete(String id) {
+        HashMap<String, Object> content = new HashMap<>();
+        int i = 0;
+        try {
+            i = mapper.deleteById(id);//通过id删除数据
+            content.put("code", "success");
+            content.put("msg", "删除数据成功");
+        }catch (Exception e){
+            content.put("code", "fail");
+            content.put("err", e.getMessage());
+            log.error(e.getMessage());
+            return content;
+        }
+        if (i == 0){
+            content.put("code", "fail");
+            content.put("msg", "删除数据失败");
+        }
+        return content;
+    }
+
+
+}
+
+[END]

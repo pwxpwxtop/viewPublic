@@ -1,0 +1,48 @@
+[- controller, ${path}/controller , _ -]
+package ${package}.controller;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import divui.ai.view.server.service.${MODEL}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import ${package}.service.${MODEL}Service;
+import ${package}.model.${MODEL};
+
+/**
+ * @author pwx
+ * @version 1.0
+ * @createDate: 2022年07月26
+ * @comment 角色
+ */
+@Controller
+@ResponseBody
+@RequestMapping("/${MODEL}Controller")
+public class ${MODEL}Controller {
+
+    @Autowired
+    private ${MODEL}Service service;
+
+    @GetMapping("/getData")
+    public Map<String, Object> getData(${MODEL} obj, Page<${MODEL}> page){
+        return service.getData(obj, page);
+    }
+
+    @PostMapping("/insert")
+    public Map<String, Object> insert(${MODEL} obj){
+        return service.insert(obj);
+    }
+
+    @PostMapping("/update")
+    public Map<String, Object> update(${MODEL} obj){
+        return service.update(obj);
+    }
+
+    @PostMapping("/delete")
+    public Map<String, Object> delete(String id){
+        return service.delete(id);
+    }
+
+}
+[END]

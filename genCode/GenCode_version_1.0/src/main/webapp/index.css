@@ -1,0 +1,107 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	transition: all 0.35s;
+}
+
+#app{
+	display: flex;
+}
+
+.app_A{
+	width: 100%;
+}
+
+.app_A > div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.app_A > div:first-child{
+	
+	height: 3.5rem;
+	background-color: aquamarine;
+}
+
+.app_B {
+	border-left: #e1e1e1 solid 1px;
+	width: 350px;
+	height: 100vh;
+}
+
+.app_field{
+	width: 90%;
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.app_field > div{
+	width: 200px;
+	margin: 10px;
+	padding: 20px 10px;
+	border-radius: 10px;
+	box-shadow: 0px 1px 3px 0px #d9d9d9;
+	transition: all 0.35s;
+}
+
+.app_field > div:hover{
+	box-shadow: 0px 1px 3px 0px #8d8d8d;
+}
+
+.app_field > div > div{
+	margin: 8px;
+}
+
+
+.el-dialog__body{
+	height: 2rem;
+	margin: 0px;
+	padding: 0px;
+}
+
+.setSvgColor{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.35s;
+}
+
+.setSvgColor:hover{
+	background-color: #e7e7e7;
+}
+
+.app_B > div:first-child{
+	height: 3.5rem;
+	background-color: #D9D9D9;
+	
+}
+
+.app_bottom{
+	
+	
+}
+
+.app_bottom > div{
+	width: 200px;
+	margin: auto;
+	padding: 10px 0px; 
+}
+
+.app_font_A{
+	color: #8D8D8D;
+	font-size: 0.9em;
+}
+
+.app_font_B{
+	color: #55aaff;
+	font-size: 0.6em;
+	
+}
+
+.app_font_C{
+	color: red;
+	font-size: 0.9em;
+	font-weight: 600;
+}

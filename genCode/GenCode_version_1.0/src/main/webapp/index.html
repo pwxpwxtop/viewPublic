@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"/>
+		<!-- Import Vue 3 -->
+		<script src="//cdn.jsdelivr.net/npm/vue@3"></script>
+		<!-- Import component library -->
+		<script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+		<link type="text/css" rel="stylesheet" href="./index.css" />
+		<script src="//cdn.jsdelivr.net/npm/@element-plus/icons-vue"></script>
+		
+		<!-- axios -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+		
+		<!-- jq -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
+	</head>
+	
+	<body>
+		<div id="app" >
+			<div class="app_A">
+				<div>
+					<el-button title="创建字段" @click="dialog.dialogVisible = true" >
+						<svg t="1659327726302" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2339" width="20" height="20"><path d="M512 48.761905a65.015873 65.015873 0 0 1 65.015873 65.015873v333.206349H910.222222a65.015873 65.015873 0 1 1 0 130.031746H576.999619L577.015873 910.222222a65.015873 65.015873 0 1 1-130.031746 0l-0.016254-333.206349H113.777778a65.015873 65.015873 0 1 1 0-130.031746h333.206349V113.777778a65.015873 65.015873 0 0 1 65.015873-65.015873z" p-id="2340" fill="#1296db"></path></svg>
+					</el-button>
+					<el-button title="保存当前数据" @click="saveFields()" >
+						<svg t="1659342298879" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6673" width="20" height="20"><path d="M814.805 128a51.179 51.179 0 0 1 51.179 51.179V844.01a51.179 51.179 0 0 1-51.179 51.157H201.173a51.179 51.179 0 0 1-51.178-51.157V179.179A51.179 51.179 0 0 1 201.173 128h613.654zM329.024 434.837a51.093 51.093 0 0 1-51.179-51.093V179.157h-76.672v664.854h613.76V179.179H738.22v204.48a51.179 51.179 0 0 1-51.179 51.178H329.024z m0-51.093h357.995V179.157H329.024v204.587z m357.91 204.501a25.557 25.557 0 1 1 0.085 51.072H329.024a25.536 25.536 0 1 1 0-51.072h357.91z" fill="#1296db" p-id="6674"></path></svg>
+					</el-button>
+					<el-button title="生成文件" @click="submitFieldGenCod()" >
+						<svg t="1659344897587" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11705" width="20" height="20"><path d="M514.24 623a21.44 21.44 0 0 1-11.53-3.36l-385.53-245.2a21.51 21.51 0 0 1 0.37-36.52L503.07 103.5a21.48 21.48 0 0 1 22.35 0l385.12 234.43a21.49 21.49 0 0 1 0.36 36.5L525.79 619.64a21.5 21.5 0 0 1-11.55 3.36zM169.42 356.7L514.24 576l344.44-219.3L514.24 147z" p-id="11706" fill="#1296db"></path><path d="M514.24 932.43a21.5 21.5 0 0 1-11.54-3.36L117.18 683.85a21.5 21.5 0 0 1 0.37-36.51l159.26-96.84a21.5 21.5 0 1 1 22.34 36.74l-129.73 78.88 344.82 219.32 344.44-219.32L727 586a21.5 21.5 0 0 1 22.36-36.73l161.14 98.09a21.49 21.49 0 0 1 0.36 36.5l-385.07 245.2a21.5 21.5 0 0 1-11.55 3.37zM531.36 496.5a16.64 16.64 0 0 1-11-29.17c44.35-38.56 89.9-92.4 89.2-115.87-0.1-2.9-1-3.9-2.09-4.7-10-7.79-58.14 13.29-86.81 25.87-58.94 26-120 52.84-151.54 16.78-9-10.28-12.19-22.67-9.19-35.76 12.19-53.84 139.35-111.28 164.72-122.26a16.64 16.64 0 1 1 13.2 30.61c-56.64 24.47-139.25 71.43-145.44 99.1-0.5 2.29-0.4 4 1.79 6.59 15.39 17.68 71.93-7.19 113.08-25.38 50.85-22.37 94.8-41.65 120.48-21.77 9.48 7.29 14.58 17.68 15 30.06 1.5 51.55-90.21 132.76-100.6 141.85a16.13 16.13 0 0 1-10.78 4.1z m0 0" p-id="11707" fill="#1296db"></path></svg>
+					</el-button>
+					<el-button title="清空数据" @click="clearField()" >
+						<svg t="1659401981648" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2615" width="20" height="20"><path d="M573.44 962.56s-5.12 0 0 0l-102.4-56.32v-5.12c10.24-20.48 97.28-204.8 87.04-199.68-10.24 10.24-71.68 76.8-117.76 143.36l-25.6 35.84s-102.4-71.68-138.24-112.64c20.48-30.72 133.12-174.08 133.12-174.08l-189.44 112.64c-10.24-10.24-71.68-76.8-92.16-112.64 15.36-15.36 117.76-102.4 117.76-102.4l-143.36 51.2-51.2-97.28v-5.12c25.6-5.12 235.52-46.08 332.8-117.76h10.24l291.84 291.84s5.12 5.12 0 10.24c-10.24 25.6-92.16 158.72-112.64 337.92zM952.32 163.84L768 348.16v5.12c40.96 71.68 40.96 153.6-20.48 215.04h-5.12L450.56 276.48v-5.12c61.44-61.44 143.36-61.44 215.04-20.48h5.12l184.32-184.32c25.6-25.6 71.68-25.6 97.28 0s25.6 71.68 0 97.28z" fill="#d81e06" p-id="2616"></path></svg>	
+					</el-button>
+				</div>
+				
+				<div style="margin: 10px 0px;">
+					<h3 style="color: #55aaff">表名 ：{{table.table}}</h3>  
+					<span style="margin: 0px 3rem;"></span>
+					<h3 style="color: #ffaaff" >包名 ：{{table.package}}</h3>
+				</div>
+				
+				<!-- 设计字段框 -->
+				<div class="app_field" >
+					<div v-for="(it, index) in table.field" :key="index">
+						<div class="setSvgColor" style="float: right;" title="高级属性设置" @click="advancedSet(it,index)">
+							<svg t="1659344531535" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8862" data-spm-anchor-id="a313x.7781069.0.i19" width="20" height="20"><path d="M944.48 552.458667l-182.357333 330.666666a73.792 73.792 0 0 1-64.565334 38.325334h-362.133333a73.792 73.792 0 0 1-64.565333-38.325334l-182.357334-330.666666a75.338667 75.338667 0 0 1 0-72.682667l182.357334-330.666667a73.792 73.792 0 0 1 64.565333-38.325333h362.133333a73.792 73.792 0 0 1 64.565334 38.325333l182.357333 330.666667a75.338667 75.338667 0 0 1 0 72.682667z m-55.989333-31.146667a10.773333 10.773333 0 0 0 0-10.378667l-182.037334-330.666666a10.517333 10.517333 0 0 0-9.205333-5.482667H335.733333a10.517333 10.517333 0 0 0-9.205333 5.482667l-182.037333 330.666666a10.773333 10.773333 0 0 0 0 10.378667l182.037333 330.666667a10.517333 10.517333 0 0 0 9.205333 5.472h361.514667a10.517333 10.517333 0 0 0 9.205333-5.472l182.037334-330.666667zM513.738667 682.666667c-94.261333 0-170.666667-76.405333-170.666667-170.666667s76.405333-170.666667 170.666667-170.666667c94.250667 0 170.666667 76.405333 170.666666 170.666667s-76.416 170.666667-170.666666 170.666667z m0-64c58.912 0 106.666667-47.754667 106.666666-106.666667s-47.754667-106.666667-106.666666-106.666667-106.666667 47.754667-106.666667 106.666667 47.754667 106.666667 106.666667 106.666667z" p-id="8863" fill="#1296db"></path></svg>
+						</div>
+						
+						<div>
+							<el-input  placeholder="字段名" v-model="it.name"></el-input>
+						</div>
+						
+						<!-- 约束类型设计 -->
+						<div style="display: flex;">
+							<el-select v-model="it.constraint" placeholder="约束类型" @change="selectConstraint(it.constraint, it.constraintState, index)" >
+								<el-option
+									v-for="item in constraints"
+									:key="item.value"
+									:label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+							<span v-if="it.constraintState" >&nbsp;</span>
+							<el-input v-if="it.constraintState" v-model="it.constraintVal" placeholder="值"></el-input>
+						</div>
+						
+						<div>
+							<el-select v-model="it.type" placeholder="数据类型">
+								<el-option
+									v-for="item in dataType"
+									:key="item.value"
+									:label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+						</div>
+						
+						<div>
+							<el-input v-model="it.label"  placeholder="标签名"></el-input>
+						</div>
+						
+						<!-- 					
+						<div>
+							<el-input v-model="it.comment"  placeholder="备注"></el-input>
+						</div> -->
+						
+						<div style="display: flex;justify-content: space-between;">
+							<el-button @click="before(index)" >
+								<svg t="1659326769605" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3346" width="20" height="20"><path d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z" fill="#1296db" p-id="3347"></path></svg>
+							</el-button>
+							<!-- 删除状态 -->
+							<el-button v-if="!it.deleted" @click="deleteField(index)" disabled> 
+								<svg t="1659326750484" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2289" width="20" height="20"><path d="M96 320a32 32 0 1 1 0-64h832a32 32 0 0 1 0 64H96z m736 0h64v448a160 160 0 0 1-160 160H288a160 160 0 0 1-160-160V320h64v96H128v-96h64v448a96 96 0 0 0 96 96h448a96 96 0 0 0 96-96V320z m-512 112a32 32 0 0 1 64 0v320a32 32 0 0 1-64 0v-320z m320 0a32 32 0 0 1 64 0v320a32 32 0 0 1-64 0v-320zM288 256H224V192a96 96 0 0 1 96-96h384a96 96 0 0 1 96 96v64h-64V224h64v32h-64V192a32 32 0 0 0-32-32H320a32 32 0 0 0-32 32v64z" p-id="2290" fill="#d81e06"></path></svg>
+							</el-button>
+							
+							<el-button v-if="it.deleted"  @click="deleteField(index)" >
+								<svg t="1659326750484" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2289" width="20" height="20"><path d="M96 320a32 32 0 1 1 0-64h832a32 32 0 0 1 0 64H96z m736 0h64v448a160 160 0 0 1-160 160H288a160 160 0 0 1-160-160V320h64v96H128v-96h64v448a96 96 0 0 0 96 96h448a96 96 0 0 0 96-96V320z m-512 112a32 32 0 0 1 64 0v320a32 32 0 0 1-64 0v-320z m320 0a32 32 0 0 1 64 0v320a32 32 0 0 1-64 0v-320zM288 256H224V192a96 96 0 0 1 96-96h384a96 96 0 0 1 96 96v64h-64V224h64v32h-64V192a32 32 0 0 0-32-32H320a32 32 0 0 0-32 32v64z" p-id="2290" fill="#d81e06"></path></svg>
+							</el-button>
+							
+							<el-button  @click="after(index)" >
+								<svg t="1659326828818" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7590" width="20" height="20"><path d="M584.533333 512l-302.933333 302.933333L341.333333 874.666667l302.933334-302.933334 59.733333-59.733333-59.733333-59.733333L341.333333 145.066667 281.6 209.066667l302.933333 302.933333z" fill="#1296db" p-id="7591"></path></svg>
+							</el-button>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 添加提示框 -->
+				<el-dialog
+					v-model="dialog.dialogVisible"
+					title="数据库表名"
+					width="25%" >
+					<template #footer>
+						<div >
+							<el-input placeholder="表名: user" v-model="table.table"></el-input>
+							<br/><br/>
+							<el-input placeholder="类名: com.mc"  v-model="table.package" ></el-input>
+						</div>
+						
+						<br/><br/>
+						<span class="dialog-footer">
+							<el-button @click="dialog.dialogVisible = false">取消</el-button>
+							<el-button type="primary" @click="confirmTableField()">确认</el-button>
+						</span>
+					</template>
+				</el-dialog>
+				
+			</div>
+			
+			
+			<!-- 高级属性设置 -->
+			<div id="app_B" class="app_B">
+				<!-- top -->
+				<div>
+					
+				</div>
+				
+				<!-- bottom -->
+				<div class="app_bottom">
+					<div>
+						<span class="app_font_A">字段名：</span><span class="app_font_C">{{itemField.name}}</span>
+					</div>
+					
+					<!-- 实体类注解 -->
+					<div>
+						<span class="app_font_B">实体类注解：</span>
+						<el-cascader
+							  clearable
+							  v-model="itemField.animation"
+							  placeholder="字段注解"
+							  :props="props"
+							  :options="animation"
+							/>
+					</div>
+					
+					<!-- 数据库字段 -->
+					<div>
+						<span class="app_font_B">表格字段是否隐藏：</span>
+						<el-select v-model="itemField.hidden" placeholder="是否隐藏">
+							<el-option
+								v-for="item in tableHidden"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+							</el-option>
+						</el-select>
+					</div>
+					
+					<!-- table表格字段是否隐藏 -->
+					<div>
+						<span class="app_font_B">表格添加关联字段：</span>
+						<el-input placeholder="关联字段"></el-input>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	
+	<script src="./index.js"></script>
+	
+</html>

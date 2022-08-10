@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="GenerateCode">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/lib/GenerateCode.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
