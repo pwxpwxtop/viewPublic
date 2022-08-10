@@ -105,5 +105,80 @@ $.post('http://localhost:10002/GenCodeController/genCode', {
 
 
 
-### 配置项
+### 数据自动填充配置项
+
+```java
+@Slf4j
+@Component //需要加入到ioc容器中
+@Configuration
+public class MyMetaObjectHandler implements MetaObjectHandler {
+
+    /**
+     * 删除操作
+     * @param metaObject
+     */
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        log.info(" start insert fill ...");
+        this.setFieldValByName("createTime", new Date(), metaObject);//创建时间
+        this.setFieldValByName("updateTime", new Date(), metaObject);//更新时间
+        this.setFieldValByName("deleteState", 0, metaObject);//删除状态
+        this.setFieldValByName("enableState", 0, metaObject);//启用状态
+    }
+
+
+    /**
+     * 更新操作
+     * @param metaObject
+     */
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        log.info(" start update fill ...");
+        this.setFieldValByName("updateTime", new Date(), metaObject);//更新时间
+        this.setFieldValByName("updateBy", "李白", metaObject);//更新人
+    }
+}
+```
+
+
+
+
+
+### 实现分页配置项
+
+```java
+package divui.ai.view.server.conf;
+
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * @author pwx
+ * @version 1.0
+ * @createDate: 2022年07月27
+ * @comment
+ */
+@EnableTransactionManagement
+@Configuration
+public class MyBatisPlusConf {
+
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        //配置分页
+        PaginationInnerInterceptor page = new PaginationInnerInterceptor();
+        interceptor.addInnerInterceptor(page);
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+        return interceptor;
+    }
+
+
+
+}
+```
 
